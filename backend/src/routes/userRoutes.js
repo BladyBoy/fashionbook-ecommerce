@@ -8,7 +8,6 @@ const {
 } = require("../controllers/userController");
 
 const protect = require("../middlewares/auth");
-const upload = require("../middlewares/upload");
 
 const router = express.Router();
 
@@ -18,7 +17,7 @@ router.post("/login", loginUser);
 
 // User Profile Routes
 router.get("/profile", protect, getUserProfile);  
-router.put("/profile", protect, upload.single("profilePicture"), updateProfile);
+router.put("/profile", protect, updateProfile);
 
 // Email Verification Routes
 router.post("/send-otp", protect, sendOTP); 
