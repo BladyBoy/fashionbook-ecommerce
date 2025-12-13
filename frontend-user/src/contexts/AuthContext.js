@@ -29,6 +29,9 @@ export function AuthProvider({ children }) {
       const token = localStorage.getItem("token");
 
       if (!token) {
+        setUser(null);
+        setIsLoggedIn(false);
+        setIsFirstLogin(false);
         setIsLoading(false);
         return;
       }
@@ -41,8 +44,6 @@ export function AuthProvider({ children }) {
 
         setUser(userData);
         setIsLoggedIn(true);
-
-        // Not first login → this is page reload or revisit
         setIsFirstLogin(false);
       } catch (error) {
         console.error("Auth initialization failed:", error);
@@ -51,9 +52,9 @@ export function AuthProvider({ children }) {
         setUser(null);
         setIsLoggedIn(false);
         setIsFirstLogin(false);
+      } finally {
+        setIsLoading(false);
       }
-
-      setIsLoading(false);
     };
 
     initializeAuth();
@@ -65,8 +66,6 @@ export function AuthProvider({ children }) {
 
     setUser(userData);
     setIsLoggedIn(true);
-
-    // Mark as first login (fresh)
     setIsFirstLogin(true);
 
     router.push("/dashboard");
@@ -97,10 +96,10 @@ export function AuthProvider({ children }) {
         isLoggedIn,
         user,
         isLoading,
-        isFirstLogin,   
+        isFirstLogin,
         login,
         logout,
-        register
+        register,
       }}
     >
       {children}
