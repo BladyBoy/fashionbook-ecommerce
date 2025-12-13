@@ -6,7 +6,7 @@ It features a complete shopping flow, admin panel APIs, advanced order pipeline,
 
 
 ## 🚀 Live Demo
-- Not deployed yet..
+- Check this out: https://fashionbook-ecommerce.vercel.app
 
 
 ## 🧩 Tech Stack
