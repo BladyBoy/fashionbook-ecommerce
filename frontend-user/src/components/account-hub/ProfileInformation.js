@@ -3,6 +3,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from 'react';
+import toast from 'react-hot-toast';
 import {
   getUserProfile,
   updateUserProfile,
@@ -116,11 +117,14 @@ export default function ProfileInformation() {
     try {
       await updateUserProfile(dataToUpdate);
       setSuccess('Profile updated successfully!');
+      toast.success('Profile updated successfully!');
+      
       setIsEditMode(false);
       await fetchProfile(); // Refresh to see new email and potentially reset status
     } catch (err) {
        // Handle "Email already in use" error specifically
        const errMsg = err.response?.data?.message || 'Failed to save changes.';
+       toast.error(errMsg);
        setError(errMsg);
     } finally {
       setIsSaving(false);
