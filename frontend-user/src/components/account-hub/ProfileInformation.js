@@ -123,7 +123,7 @@ export default function ProfileInformation() {
       await fetchProfile(); // Refresh to see new email and potentially reset status
     } catch (err) {
        // Handle "Email already in use" error specifically
-       const errMsg = err.response?.data?.message || 'Failed to save changes.';
+       const errMsg = err.response?.data?.message || ( typeof err.response?.data === "string" ? err.response.data : 'Failed to save changes.');
        toast.error(errMsg);
        setError(errMsg);
     } finally {
@@ -245,7 +245,7 @@ export default function ProfileInformation() {
         </div>
       )}
 
-      {error && !isEditMode && (
+      {error && (
         <div className="mb-3 p-2 bg-red-50 text-red-700 rounded text-[10px] sm:text-sm font-medium">
           {error}
         </div>

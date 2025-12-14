@@ -8,7 +8,6 @@ export const getUserProfile = async () => {
     const response = await apiService.get('/users/profile');
     return response.data; 
   } catch (error) {
-    console.error('Error fetching user profile:', error.response?.data || error.message);
     throw error;
   }
 };
@@ -19,11 +18,6 @@ export const updateUserProfile = async (updatedData) => {
     const response = await apiService.put('/users/profile', updatedData);
     return response.data;
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.error('Error updating user profile (API Error):', error.response?.data?.message || error.message);
-    } else {
-      console.error('Error updating user profile (Generic Error):', error.message);
-    }
     throw error;
   }
 };
