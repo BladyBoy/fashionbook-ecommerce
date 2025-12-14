@@ -260,7 +260,7 @@ exports.forgotPassword = async (req, res, next) => {
     // Generate Link
     const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
 
-    // --- CHANGED: Always send Email ---
+    // --- Always send Email ---
     // Regardless of whether they typed Email or Phone, we send to user.email
     await sendPasswordResetEmail(user, resetUrl);
     
@@ -326,6 +326,7 @@ exports.changePassword = async (req, res, next) => {
     next(error);
   }
 };
+
 // Changing Password (not forgetten)
 exports.changePassword = async (req, res, next) => {
   try {
@@ -365,9 +366,6 @@ exports.changePassword = async (req, res, next) => {
 // Adding a new address
 exports.addAddress = async (req, res, next) => {
   try {
-    //
-    // --- THE FIX ---
-    // We now look for the correct fields sent from your frontend form.
     const { name, addressLine1, city, state, zipCode, phone, isDefault } = req.body;
 
     const user = await User.findById(req.user.id);
@@ -455,9 +453,6 @@ exports.getAddresses = async (req, res, next) => {
 exports.updateAddress = async (req, res, next) => {
   try {
     const { addressId } = req.params;
-    //
-    // --- THE FIX ---
-    // We look for the correct fields here as well.
     const { name, addressLine1, city, state, zipCode, phone, isDefault } = req.body;
 
     const user = await User.findById(req.user.id);
