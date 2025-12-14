@@ -52,6 +52,8 @@ export default function ProfileInformation() {
         lastName: userData.lastName || userData.name?.split(' ').slice(1).join(' ') || '',
         gender: userData.gender || 'Other',
         phone: userData.phone || '',
+        // NEW: Load email into form data (it might be empty if phone user)
+        email: userData.email || '', 
       });
     } catch {
       setError('Failed to load profile information.');
@@ -108,21 +110,30 @@ export default function ProfileInformation() {
       name: `${formData.firstName} ${formData.lastName}`.trim(),
       gender: formData.gender,
       phone: formData.phone,
+      email: formData.email, // NEW: Send email to backend
     };
 
     try {
       await updateUserProfile(dataToUpdate);
       setSuccess('Profile updated successfully!');
       setIsEditMode(false);
-      await fetchProfile();
-    } catch {
-      setError('Failed to save changes.');
+      await fetchProfile(); // Refresh to see new email and potentially reset status
+    } catch (err) {
+       // Handle "Email already in use" error specifically
+       const errMsg = err.response?.data?.message || 'Failed to save changes.';
+       setError(errMsg);
     } finally {
       setIsSaving(false);
     }
   };
 
   const handleSendOtp = async () => {
+    // Safety check: Cannot send OTP if no email exists
+    if (!user?.email) {
+        setError("Please add an email address first.");
+        return;
+    }
+
     if (timer > 0) return;
 
     setVerificationStatus({ message: 'Sending OTP...', type: 'loading' });
@@ -275,6 +286,24 @@ export default function ProfileInformation() {
 
           </div>
 
+          {/* NEW: Email Input in Edit Mode */}
+          <div className="mt-3 sm:mt-5">
+            <label className="block text-[10px] sm:text-sm font-medium text-gray-700">
+              Email Address <span className="text-red-500">*</span>
+            </label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              className={inputClass}
+              placeholder="example@gmail.com"
+            />
+            <p className="text-[9px] sm:text-xs text-gray-500 mt-1">
+              Changing email will require re-verification.
+            </p>
+          </div>
+
           {/* Gender */}
           <div className="mt-3 sm:mt-5">
             <p className="text-[10px] sm:text-sm font-medium text-gray-700">Gender</p>
@@ -381,15 +410,35 @@ export default function ProfileInformation() {
                 
                 <div>
                   <p className="text-[10px] sm:text-xs font-medium text-gray-600">Email Address</p>
-                  <p className="mt-0.5 text-[11px] sm:text-base font-semibold text-gray-900 break-all">
-                    {user?.email}
-                  </p>
+                  
+                  {user?.email ? (
+                    <p className="mt-0.5 text-[11px] sm:text-base font-semibold text-gray-900 break-all">
+                        {user.email}
+                    </p>
+                  ) : (
+                    <p className="mt-0.5 text-[11px] sm:text-sm font-bold text-red-500">
+                       No email linked!
+                    </p>
+                  )}
                 </div>
+
+                {/* LOGIC: 
+                    1. If Verified: Show Badge.
+                    2. If No Email: Show "Add Email" button (opens edit mode).
+                    3. If Email Exists but Unverified: Show "Verify" button. 
+                */}
 
                 {user?.isVerified ? (
                   <span className="mt-1 px-2 py-0.5 rounded-full bg-green-100 text-green-700 text-[9px] sm:text-xs font-semibold">
                     Verified
                   </span>
+                ) : !user?.email ? (
+                    <button
+                        onClick={() => setIsEditMode(true)}
+                        className="mt-2 sm:mt-0 px-3 py-1 bg-blue-600 text-white rounded text-[10px] sm:text-sm hover:bg-blue-700"
+                    >
+                        Add Email
+                    </button>
                 ) : (
                   <button
                     onClick={handleSendOtp}

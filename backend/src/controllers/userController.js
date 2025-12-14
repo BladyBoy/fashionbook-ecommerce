@@ -181,22 +181,68 @@ exports.getUserProfile = async (req, res, next) => {
     next(err);
   }
 };
+
 // Updating User Profile
 exports.updateProfile = async (req, res, next) => {
   try {
     const userId = req.user.id;
-    const updates = req.body; // Getting only provided fields
-    const profilePicture = req.file?.path;
+    
+    const { 
+      name, 
+      firstName, 
+      lastName, 
+      gender, 
+      email, 
+      phone, 
+      alternatePhone, 
+      profilePicture 
+    } = req.body;
 
     const user = await User.findById(userId);
     if (!user) return errorResponse(res, "User not found", 404);
 
-    // Update only the provided fields
-    if (profilePicture) updates.profilePicture = profilePicture;
-    Object.assign(user, updates);
+    // Handling Email Update Logic
+    if (email && email !== user.email) {
+        // Check if this new email is already taken by someone else
+        const emailExists = await User.findOne({ email });
+        if (emailExists) {
+            return errorResponse(res, "This email is already associated with another account.", 400);
+        }
+
+        user.email = email.toLowerCase();
+        // Reseting verification status because the email has changed
+        user.isVerified = false; 
+    }
+
+    // Handling Phone Update Logic
+    if (phone && phone !== user.phone) {
+        const phoneExists = await User.findOne({ phone });
+        if (phoneExists) {
+             return errorResponse(res, "This phone number is already associated with another account.", 400);
+        }
+        user.phone = phone;
+    }
+
+    // Updating other basic fields ---
+    if (name) user.name = name;
+    if (firstName) user.firstName = firstName;
+    if (lastName) user.lastName = lastName;
+    if (gender) user.gender = gender;
+    if (alternatePhone) user.alternatePhone = alternatePhone;
+    if (profilePicture) user.profilePicture = profilePicture;
 
     await user.save();
-    return successResponse(res, "Profile updated successfully", { user });
+
+    return successResponse(res, "Profile updated successfully", { 
+        user: {
+            id: user._id,
+            name: user.name,
+            email: user.email,
+            phone: user.phone,
+            isVerified: user.isVerified, 
+            gender: user.gender
+        } 
+    });
   } catch (error) {
     next(error);
   }
