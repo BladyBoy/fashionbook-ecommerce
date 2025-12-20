@@ -4,7 +4,8 @@
 
 export default function Terms() {
   return (
-    <div className="bg-white p-3 sm:p-4 md:p-6 rounded-lg shadow-sm border border-gray-100 text-[10px] sm:text-sm leading-relaxed">
+    <div className="bg-white p-3 sm:p-4 md:p-6 rounded-lg shadow-sm border border-gray-100
+                    text-[10px] sm:text-sm leading-relaxed animate-fadeIn">
 
       {/* HEADER */}
       <h2 className="text-[14px] sm:text-2xl font-bold text-gray-800 mb-1">
@@ -15,102 +16,163 @@ export default function Terms() {
         Last Updated: December 2025
       </p>
 
-      {/* CONTENT WRAPPER */}
-      <div className="max-w-none h-[500px] sm:h-[600px] overflow-y-auto pr-2 sm:pr-4 custom-scrollbar text-gray-700">
+      {/* SCROLLABLE CONTENT */}
+      <div className="max-w-none h-[520px] sm:h-[620px] overflow-y-auto pr-2 sm:pr-4
+                      custom-scrollbar text-gray-700 space-y-4">
 
-        {/* SECTION 1 */}
-        <h3 className="text-[12px] sm:text-lg font-bold text-gray-800 mt-3 mb-1">
-          1. Introduction
-        </h3>
-        <p className="text-[10px] sm:text-sm">
-          Welcome to <strong>Satya&apos;s Fashion Book</strong>. These terms and conditions outline 
-          the rules and regulations for the use of our website and services. By accessing 
-          this website, you accept these terms in full.
-        </p>
+        {/* 1 */}
+        <section>
+          <h3 className="text-[12px] sm:text-lg font-bold text-gray-800">
+            1. Introduction
+          </h3>
+          <p>
+            Welcome to <strong>Satya&apos;s Fashion Book</strong>. By accessing or using
+            our website and services, you agree to be bound by these Terms & Conditions.
+            If you do not agree, please do not use the platform.
+          </p>
+        </section>
 
-        {/* SECTION 2 */}
-        <h3 className="text-[12px] sm:text-lg font-bold text-gray-800 mt-4 mb-1">
-          2. Account Registration
-        </h3>
-        <p className="text-[10px] sm:text-sm">
-          To place an order, you must register an account. You agree to provide accurate 
-          and current information, and safeguard your account credentials. You are responsible 
-          for any activity on your account.
-        </p>
+        {/* 2 */}
+        <section>
+          <h3 className="text-[12px] sm:text-lg font-bold text-gray-800">
+            2. Account Registration
+          </h3>
+          <p>
+            To place orders, you must create an account with accurate information.
+            You are responsible for maintaining the confidentiality of your login
+            credentials and all activities performed under your account.
+          </p>
+        </section>
 
-        {/* SECTION 3 */}
-        <h3 className="text-[12px] sm:text-lg font-bold text-gray-800 mt-4 mb-1">
-          3. Product Information
-        </h3>
-        <p className="text-[10px] sm:text-sm">
-          We attempt to display products as accurately as possible. However, we cannot guarantee 
-          exact color accuracy due to varied device displays.
-        </p>
+        {/* 3 */}
+        <section>
+          <h3 className="text-[12px] sm:text-lg font-bold text-gray-800">
+            3. User Responsibilities
+          </h3>
+          <ul className="list-disc pl-4 space-y-1">
+            <li>Do not misuse the platform or attempt unauthorized access.</li>
+            <li>Do not submit false orders or fake cancellation requests.</li>
+            <li>Respect store policies and customer support decisions.</li>
+          </ul>
+        </section>
 
-        {/* SECTION 4 */}
-        <h3 className="text-[12px] sm:text-lg font-bold text-gray-800 mt-4 mb-1">
-          4. Pricing and Payment
-        </h3>
-        <p className="text-[10px] sm:text-sm">
-          All prices are in INR and include taxes unless stated otherwise. Prices may change 
-          without notice. We currently accept <strong>Cash on Delivery (COD)</strong>.
-        </p>
+        {/* 4 */}
+        <section>
+          <h3 className="text-[12px] sm:text-lg font-bold text-gray-800">
+            4. Product Information
+          </h3>
+          <p>
+            We strive to display accurate product descriptions and images. However,
+            colors and details may vary slightly due to device display settings.
+          </p>
+        </section>
 
-        {/* SECTION 5 */}
-        <h3 className="text-[12px] sm:text-lg font-bold text-gray-800 mt-4 mb-1">
-          5. Shipping and Delivery
-        </h3>
-        <p className="text-[10px] sm:text-sm">
-          Deliveries are limited to select locations. Delivery timelines are estimates only. 
-          Risk of loss passes to you once the product is handed to the carrier.
-        </p>
+        {/* 5 */}
+        <section>
+          <h3 className="text-[12px] sm:text-lg font-bold text-gray-800">
+            5. Pricing & Payments
+          </h3>
+          <p>
+            All prices are listed in INR and include applicable taxes unless stated.
+            Prices may change without prior notice. Currently, we support
+            <strong> Cash on Delivery (COD)</strong>.
+          </p>
+        </section>
 
-        {/* SECTION 6 */}
-        <h3 className="text-[12px] sm:text-lg font-bold text-gray-800 mt-4 mb-1">
-          6. Returns and Cancellations
-        </h3>
+        {/* 6 */}
+        <section>
+          <h3 className="text-[12px] sm:text-lg font-bold text-gray-800">
+            6. Shipping & Delivery
+          </h3>
+          <p>
+            Delivery timelines are estimates and may vary due to logistics,
+            weather conditions, or regional restrictions. Ownership of products
+            transfers once handed over to the courier partner.
+          </p>
+        </section>
 
-        <ul className="list-disc pl-4 space-y-1 text-[10px] sm:text-sm">
-          <li>
-            <strong>Cancellations:</strong> Orders in “Pending” can be canceled instantly. 
-            “Processing” orders require admin approval. No cancellations once “Shipped”.
-          </li>
-          <li>
-            <strong>Returns:</strong> Eligible for damaged or incorrect products reported 
-            within 48 hours. Items must be unused and in original packaging.
-          </li>
-        </ul>
+        {/* 7 */}
+        <section>
+          <h3 className="text-[12px] sm:text-lg font-bold text-gray-800">
+            7. Cancellations, Returns & Refunds
+          </h3>
+          <ul className="list-disc pl-4 space-y-1">
+            <li>Instant cancellation for <strong>Pending</strong> orders.</li>
+            <li>Admin approval required for <strong>Processing</strong> orders.</li>
+            <li>No cancellation once an order is <strong>Shipped</strong>.</li>
+            <li>Returns accepted only for damaged or incorrect items.</li>
+          </ul>
+        </section>
 
-        {/* SECTION 7 */}
-        <h3 className="text-[12px] sm:text-lg font-bold text-gray-800 mt-4 mb-1">
-          7. Limitation of Liability
-        </h3>
-        <p className="text-[10px] sm:text-sm">
-          Satya&apos;s Fashion Book shall not be liable for any loss arising from your use 
-          of this website, under any legal theory.
-        </p>
+        {/* 8 */}
+        <section>
+          <h3 className="text-[12px] sm:text-lg font-bold text-gray-800">
+            8. Account Suspension
+          </h3>
+          <p>
+            We reserve the right to suspend or terminate accounts that violate
+            policies, misuse services, or engage in fraudulent activity.
+          </p>
+        </section>
 
-        {/* SECTION 8 */}
-        <h3 className="text-[12px] sm:text-lg font-bold text-gray-800 mt-4 mb-1">
-          8. Governing Law
-        </h3>
-        <p className="text-[10px] sm:text-sm">
-          These terms are governed by Indian law. Any disputes will be handled exclusively 
-          in courts located in Rajahmundry, Andhra Pradesh.
-        </p>
+        {/* 9 */}
+        <section>
+          <h3 className="text-[12px] sm:text-lg font-bold text-gray-800">
+            9. Limitation of Liability
+          </h3>
+          <p>
+            Satya&apos;s Fashion Book shall not be liable for indirect, incidental,
+            or consequential damages arising from the use of this platform.
+          </p>
+        </section>
 
-        {/* SECTION 9 */}
-        <h3 className="text-[12px] sm:text-lg font-bold text-gray-800 mt-4 mb-1">
-          9. Contact Information
-        </h3>
-        <p className="text-[10px] sm:text-sm">
-          For queries:<br/>
-          <strong>Ravi Boddapati</strong><br/>
-          Phone: 9010076453<br/>
-          Tadithota Jeevan Junction, Rajahmundry.
-        </p>
+        {/* 10 */}
+        <section>
+          <h3 className="text-[12px] sm:text-lg font-bold text-gray-800">
+            10. Force Majeure
+          </h3>
+          <p>
+            We are not responsible for delays or failures caused by events beyond
+            our reasonable control, including natural disasters, strikes, or
+            government actions.
+          </p>
+        </section>
 
-        <div className="h-8"></div>
+        {/* 11 */}
+        <section>
+          <h3 className="text-[12px] sm:text-lg font-bold text-gray-800">
+            11. Changes to Terms
+          </h3>
+          <p>
+            These terms may be updated periodically. Continued use of the website
+            indicates acceptance of the revised terms.
+          </p>
+        </section>
+
+        {/* 12 */}
+        <section>
+          <h3 className="text-[12px] sm:text-lg font-bold text-gray-800">
+            12. Governing Law
+          </h3>
+          <p>
+            These terms are governed by Indian law. Any disputes shall be subject
+            to the jurisdiction of courts in Rajahmundry, Andhra Pradesh.
+          </p>
+        </section>
+
+        {/* 13 */}
+        <section>
+          <h3 className="text-[12px] sm:text-lg font-bold text-gray-800">
+            13. Contact Information
+          </h3>
+          <p>
+            <strong>Ravi Boddapati</strong><br />
+            Phone: 9010076453<br />
+            Tadithota Jeevan Junction, Rajahmundry
+          </p>
+        </section>
+
+        <div className="h-6"></div>
       </div>
     </div>
   );

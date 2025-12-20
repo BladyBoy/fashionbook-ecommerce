@@ -104,6 +104,28 @@ export default function AccountSidebar({ activeView, setActiveView }) {
             </span>
           </button>
 
+          <button 
+            onClick={() => setActiveView('privacy')} 
+            className={`${navButtonBase} ${activeView === 'privacy' ? activeClasses : inactiveClasses}`}
+          >
+            <span className="text-sm md:text-lg">🔒</span>
+            <span className="truncate">
+              <span className="md:hidden">Privacy</span>
+              <span className="hidden md:inline">Privacy & Cookies</span>
+            </span>
+          </button>
+
+          <button 
+            onClick={() => setActiveView('shipping')} 
+            className={`${navButtonBase} ${activeView === 'shipping' ? activeClasses : inactiveClasses}`}
+          >
+            <span className="text-sm md:text-lg">🚚</span>
+            <span className="truncate">
+              <span className="md:hidden">Ship & Return</span>
+              <span className="hidden md:inline">Shipping, Returns & Exchanges</span>
+            </span>
+          </button>
+
         </nav>
       </div>
 
