@@ -4,25 +4,25 @@
 
 import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
-import apiService from "@/services/apiService";
+import { loginUser } from "@/services/authService"; 
 import { forgotPassword } from "@/services/userService"; 
 
 export default function LoginForm() {
   const { login } = useAuth();
   
-  // --- LOGIN STATES ---
+  // LOGIN STATES
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // --- FORGOT PASSWORD STATES ---
+  // FORGOT PASSWORD STATES
   const [isForgotPasswordView, setIsForgotPasswordView] = useState(false);
   const [resetIdentifier, setResetIdentifier] = useState("");
   const [resetStatus, setResetStatus] = useState({ loading: false, message: "", type: "" });
 
-  // 1. HANDLE LOGIN
+  // HANDLEING LOGIN
   async function handleLoginSubmit(e) {
     e.preventDefault();
     setError("");
@@ -35,11 +35,11 @@ export default function LoginForm() {
     }
 
     try {
-      const res = await apiService.post('/users/login', { 
+      const data = await loginUser({ 
         identifier: email, 
         password 
       });
-      const data = res.data; 
+
       login(data.data.token, data.data.user); 
     } catch (err) {
       setError(err.response?.data?.message || "Invalid credentials. Please try again.");
@@ -48,7 +48,7 @@ export default function LoginForm() {
     }
   }
 
-  // 2. HANDLE FORGOT PASSWORD
+  // HANDLING FORGOT PASSWORD
   async function handleForgotSubmit(e) {
     e.preventDefault();
     setResetStatus({ loading: true, message: "", type: "" });
@@ -64,7 +64,6 @@ export default function LoginForm() {
       
       setResetStatus({ 
         loading: false, 
-        // Use the message from backend or a fallback
         message: response.message || `Reset link sent to ${resetIdentifier}. Check your inbox/SMS.`, 
         type: "success" 
       });
@@ -77,7 +76,7 @@ export default function LoginForm() {
     }
   }
 
-  // --- RENDER: FORGOT PASSWORD VIEW ---
+  // RENDER: FORGOT PASSWORD VIEW
   if (isForgotPasswordView) {
     return (
       <div className="bg-white py-8 px-6 shadow rounded-lg sm:px-10">
@@ -141,7 +140,7 @@ export default function LoginForm() {
     );
   }
 
-  // --- RENDER: LOGIN VIEW ---
+  // RENDER: LOGIN VIEW
   return (
     <div className="bg-white py-8 px-6 shadow rounded-lg sm:px-10">
       {error && (
